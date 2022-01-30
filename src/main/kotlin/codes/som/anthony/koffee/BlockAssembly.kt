@@ -16,7 +16,7 @@ class BlockAssembly(override val instructions: InsnList, override val tryCatchBl
 fun assembleBlock(routine: BlockAssembly.() -> Unit): Pair<InsnList, List<TryCatchBlockNode>> {
     val blockAssembly = BlockAssembly(InsnList(), mutableListOf())
     routine(blockAssembly)
-    return Pair(blockAssembly.instructions, blockAssembly.tryCatchBlocks)
+    return blockAssembly.instructions to blockAssembly.tryCatchBlocks
 }
 
 fun InsnList.koffee(
@@ -25,5 +25,5 @@ fun InsnList.koffee(
 ): Pair<InsnList, List<TryCatchBlockNode>> {
     val blockAssembly = BlockAssembly(this, tryCatchBlocks)
     routine(blockAssembly)
-    return Pair(blockAssembly.instructions, blockAssembly.tryCatchBlocks)
+    return blockAssembly.instructions to blockAssembly.tryCatchBlocks
 }
