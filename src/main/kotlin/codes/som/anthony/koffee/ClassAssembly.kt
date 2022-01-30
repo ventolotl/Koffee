@@ -1,6 +1,8 @@
 package codes.som.anthony.koffee
 
 import codes.som.anthony.koffee.modifiers.Modifiers
+import codes.som.anthony.koffee.sugar.ClassAssemblyExtension.insertToClinit
+import codes.som.anthony.koffee.sugar.ClassAssemblyExtension.insertToInits
 import codes.som.anthony.koffee.sugar.ModifiersAccess
 import codes.som.anthony.koffee.sugar.TypesAccess
 import codes.som.anthony.koffee.types.TypeLike
@@ -71,6 +73,23 @@ class ClassAssembly internal constructor(val node: ClassNode) : ModifiersAccess,
         val fieldNode = FieldNode(ASM7, access.access, name, coerceType(type).descriptor, signature, value)
         node.fields.add(fieldNode)
         return fieldNode
+    }
+
+    fun field(
+        access: Modifiers,
+        name: String,
+        type: TypeLike,
+        signature: String? = null,
+        value: Any? = null,
+        initialize: BlockAssembly.() -> Unit
+    ): FieldNode {
+        val field = field(access, name, type, signature, value)
+        if (access.containsAny(static)) {
+            insertToClinit(initialize)
+        } else {
+            insertToInits(initialize)
+        }
+        return field
     }
 
     fun method(
