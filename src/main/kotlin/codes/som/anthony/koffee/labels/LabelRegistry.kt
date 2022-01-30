@@ -14,12 +14,12 @@ class LabelRegistry(private val insns: InstructionAssembly) {
 
     fun copy(insns: InstructionAssembly): LabelRegistry {
         return LabelRegistry(insns)
-                .also { it.labels = this.labels }
+            .also { it.labels = this.labels }
     }
 
     fun scope(insns: InstructionAssembly): LabelRegistry {
         return LabelRegistry(insns)
-                .also { it.labels.putAll(this.labels) }
+            .also { it.labels.putAll(this.labels) }
     }
 
     operator fun get(index: Int) = this["label_$index"]

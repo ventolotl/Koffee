@@ -13,8 +13,8 @@ fun InstructionAssembly.push_int(i: Int) {
         4 -> iconst_4
         5 -> iconst_5
 
-        in Byte.MIN_VALUE .. Byte.MAX_VALUE -> bipush(i)
-        in Short.MIN_VALUE .. Short.MAX_VALUE -> sipush(i)
+        in Byte.MIN_VALUE..Byte.MAX_VALUE -> bipush(i)
+        in Short.MIN_VALUE..Short.MAX_VALUE -> sipush(i)
 
         else -> ldc(i)
     }

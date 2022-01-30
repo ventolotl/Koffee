@@ -11,17 +11,25 @@ import org.objectweb.asm.tree.JumpInsnNode
 import org.objectweb.asm.tree.LabelNode
 import org.objectweb.asm.tree.TryCatchBlockNode
 
-class GuardAssembly<T>(private val assembly: T,
-        val startNode: LabelNode, val endNode: LabelNode, val exitNode: LabelNode)
+class GuardAssembly<T>(
+    private val assembly: T,
+    val startNode: LabelNode,
+    val endNode: LabelNode,
+    val exitNode: LabelNode
+)
         where T : InstructionAssembly, T : TryCatchContainer, T : LabelScope {
-    class GuardHandlerAssemblyContext<T>(override val instructions: InsnList, private val assembly: T):
-            InstructionAssembly, TryCatchContainer, LabelScope
+    class GuardHandlerAssemblyContext<T>(override val instructions: InsnList, private val assembly: T) :
+        InstructionAssembly, TryCatchContainer, LabelScope
             where T : InstructionAssembly, T : TryCatchContainer, T : LabelScope {
         override val tryCatchBlocks = assembly.tryCatchBlocks
         override val L = assembly.L.copy(assembly)
     }
 
-    fun handle(exceptionType: TypeLike, fallthrough: Boolean = false, routine: GuardHandlerAssemblyContext<T>.() -> Unit): GuardAssembly<T> {
+    fun handle(
+        exceptionType: TypeLike,
+        fallthrough: Boolean = false,
+        routine: GuardHandlerAssemblyContext<T>.() -> Unit
+    ): GuardAssembly<T> {
         val instructions = InsnList()
         val handlerNode = LabelNode()
         instructions.add(handlerNode)
@@ -33,7 +41,14 @@ class GuardAssembly<T>(private val assembly: T,
             instructions.add(JumpInsnNode(GOTO, exitNode))
 
         assembly.instructions.insertBefore(exitNode, instructions)
-        assembly.tryCatchBlocks.add(TryCatchBlockNode(startNode, endNode, handlerNode, coerceType(exceptionType).internalName))
+        assembly.tryCatchBlocks.add(
+            TryCatchBlockNode(
+                startNode,
+                endNode,
+                handlerNode,
+                coerceType(exceptionType).internalName
+            )
+        )
 
         return this
     }

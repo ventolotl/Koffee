@@ -34,7 +34,9 @@ object protected : Modifiers(ACC_PROTECTED)
 object static : Modifiers(ACC_STATIC)
 object final : Modifiers(ACC_FINAL)
 object `super` : Modifiers(ACC_SUPER)
+
 val _super get() = `super`
+
 object synchronized : Modifiers(ACC_SYNCHRONIZED)
 object open : Modifiers(ACC_OPEN)
 object transitive : Modifiers(ACC_TRANSITIVE)
@@ -45,7 +47,9 @@ object varargs : Modifiers(ACC_VARARGS)
 object transient : Modifiers(ACC_TRANSIENT)
 object native : Modifiers(ACC_NATIVE)
 object `interface` : Modifiers(ACC_INTERFACE)
+
 val _interface get() = `interface`
+
 object abstract : Modifiers(ACC_ABSTRACT)
 object strict : Modifiers(ACC_STRICT)
 object synthetic : Modifiers(ACC_SYNTHETIC)

@@ -6,6 +6,8 @@ import org.objectweb.asm.Type
 
 @Suppress("NOTHING_TO_INLINE")
 internal inline fun constructMethodDescriptor(returnType: TypeLike, vararg parameterTypes: TypeLike): String {
-    return Type.getMethodDescriptor(coerceType(returnType),
-            *parameterTypes.map(::coerceType).toTypedArray())
+    return Type.getMethodDescriptor(
+        coerceType(returnType),
+        *parameterTypes.map(::coerceType).toTypedArray()
+    )
 }

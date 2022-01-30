@@ -10,6 +10,7 @@ fun InstructionAssembly.tableswitch(min: Int, max: Int, defaultLabel: LabelLike,
     val labelNodes = Array(labels.size) { coerceLabel(labels[it]) }
     instructions.add(TableSwitchInsnNode(min, max, coerceLabel(defaultLabel), *labelNodes))
 }
+
 fun InstructionAssembly.lookupswitch(defaultLabel: LabelLike, vararg branches: Pair<Int, LabelLike>) {
     val keys = IntArray(branches.size) { branches[it].first }
     val labels = Array(branches.size) { coerceLabel(branches[it].second) }

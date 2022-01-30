@@ -6,6 +6,7 @@ import org.objectweb.asm.tree.InsnNode
 
 internal typealias U = Unit
 
-val InstructionAssembly.nop: U get() {
-    instructions.add(InsnNode(NOP))
-}
+val InstructionAssembly.nop: U
+    get() {
+        instructions.add(InsnNode(NOP))
+    }

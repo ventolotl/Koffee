@@ -9,9 +9,11 @@ import org.objectweb.asm.tree.TypeInsnNode
 fun InstructionAssembly.new(type: TypeLike) {
     instructions.add(TypeInsnNode(NEW, coerceType(type).internalName))
 }
+
 fun InstructionAssembly.checkcast(type: TypeLike) {
     instructions.add(TypeInsnNode(CHECKCAST, coerceType(type).internalName))
 }
+
 fun InstructionAssembly.instanceof(type: TypeLike) {
     instructions.add(TypeInsnNode(INSTANCEOF, coerceType(type).internalName))
 }
